@@ -1,6 +1,6 @@
 
-import 'card_details.dart';
-import 'transaction_details.dart';
+import '../card_details/card_details.dart';
+import '../transaction_details/transaction_details.dart';
 
 class PaymentData {
   CardDetails cardDetails;

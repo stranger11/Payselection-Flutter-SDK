@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
-import 'models/payselection_request.dart';
-import 'models/payselection_response.dart';
+import 'models/payselection_request/payselection_request.dart';
+import 'models/payselection_response/payselection_response.dart';
 
 class PaySelectionConfig {
   final String publicKey;

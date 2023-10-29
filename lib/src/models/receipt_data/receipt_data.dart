@@ -9,16 +9,16 @@ class ReceiptData {
     timestamp = json['timestamp'];
     externalId = json['external_id'];
     receipt = json['receipt'] != null
-        ? new Receipt.fromJson(json['receipt'])
+        ? Receipt.fromJson(json['receipt'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['timestamp'] = this.timestamp;
-    data['external_id'] = this.externalId;
-    if (this.receipt != null) {
-      data['receipt'] = this.receipt!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['timestamp'] = timestamp;
+    data['external_id'] = externalId;
+    if (receipt != null) {
+      data['receipt'] = receipt!.toJson();
     }
     return data;
   }
@@ -52,74 +52,71 @@ class Receipt {
 
   Receipt.fromJson(Map<String, dynamic> json) {
     client = json['client'] != null
-        ? new Client.fromJson(json['client'])
+        ? Client.fromJson(json['client'])
         : null;
     company = json['company'] != null
-        ? new Company.fromJson(json['company'])
+        ? Company.fromJson(json['company'])
         : null;
     agentInfo = json['agent_info'] != null
-        ? new AgentInfo.fromJson(json['agent_info'])
+        ? AgentInfo.fromJson(json['agent_info'])
         : null;
     supplierInfo = json['supplier_info'] != null
-        ? new ReceivePaymentsOperator.fromJson(json['supplier_info'])
+        ? ReceivePaymentsOperator.fromJson(json['supplier_info'])
         : null;
     if (json['items'] != null) {
       items = <Items>[];
       json['items'].forEach((v) {
-        items!.add(new Items.fromJson(v));
+        items!.add(Items.fromJson(v));
       });
     }
     if (json['payments'] != null) {
       payments = <Payments>[];
       json['payments'].forEach((v) {
-        payments!.add(new Payments.fromJson(v));
+        payments!.add(Payments.fromJson(v));
       });
     }
     if (json['vats'] != null) {
       vats = <Vats>[];
       json['vats'].forEach((v) {
-        vats!.add(new Vats.fromJson(v));
+        vats!.add(Vats.fromJson(v));
       });
     }
     total = json['total'];
     additionalCheckProps = json['additional_check_props'];
     cashier = json['cashier'];
     additionalUserProps = json['additional_user_props'] != null
-        ? new AdditionalUserProps.fromJson(
-            json['additional_user_props'])
+        ? AdditionalUserProps.fromJson(json['additional_user_props'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.client != null) {
-      data['client'] = this.client!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    if (client != null) {
+      data['client'] = client!.toJson();
     }
-    if (this.company != null) {
-      data['company'] = this.company!.toJson();
+    if (company != null) {
+      data['company'] = company!.toJson();
     }
-    if (this.agentInfo != null) {
-      data['agent_info'] = this.agentInfo!.toJson();
+    if (agentInfo != null) {
+      data['agent_info'] = agentInfo!.toJson();
     }
-    if (this.supplierInfo != null) {
-      data['supplier_info'] = this.supplierInfo!.toJson();
+    if (supplierInfo != null) {
+      data['supplier_info'] = supplierInfo!.toJson();
     }
-    if (this.items != null) {
-      data['items'] = this.items!.map((v) => v.toJson()).toList();
+    if (items != null) {
+      data['items'] = items!.map((v) => v.toJson()).toList();
     }
-    if (this.payments != null) {
-      data['payments'] =
-          this.payments!.map((v) => v.toJson()).toList();
+    if (payments != null) {
+      data['payments'] = payments!.map((v) => v.toJson()).toList();
     }
-    if (this.vats != null) {
-      data['vats'] = this.vats!.map((v) => v.toJson()).toList();
+    if (vats != null) {
+      data['vats'] = vats!.map((v) => v.toJson()).toList();
     }
-    data['total'] = this.total;
-    data['additional_check_props'] = this.additionalCheckProps;
-    data['cashier'] = this.cashier;
-    if (this.additionalUserProps != null) {
-      data['additional_user_props'] =
-          this.additionalUserProps!.toJson();
+    data['total'] = total;
+    data['additional_check_props'] = additionalCheckProps;
+    data['cashier'] = cashier;
+    if (additionalUserProps != null) {
+      data['additional_user_props'] = additionalUserProps!.toJson();
     }
     return data;
   }
@@ -137,9 +134,9 @@ class Vats {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['type'] = this.type;
-    data['sum'] = this.sum;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['type'] = type;
+    data['sum'] = sum;
     return data;
   }
 }
@@ -160,11 +157,11 @@ class Client {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['inn'] = this.inn;
-    data['email'] = this.email;
-    data['phone'] = this.phone;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['name'] = name;
+    data['inn'] = inn;
+    data['email'] = email;
+    data['phone'] = phone;
     return data;
   }
 }
@@ -185,11 +182,11 @@ class Company {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['email'] = this.email;
-    data['sno'] = this.sno;
-    data['inn'] = this.inn;
-    data['payment_address'] = this.paymentAddress;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['email'] = email;
+    data['sno'] = sno;
+    data['inn'] = inn;
+    data['payment_address'] = paymentAddress;
     return data;
   }
 }
@@ -209,32 +206,32 @@ class AgentInfo {
   AgentInfo.fromJson(Map<String, dynamic> json) {
     type = json['type'];
     payingAgent = json['paying_agent'] != null
-        ? new PayingAgent.fromJson(json['paying_agent'])
+        ? PayingAgent.fromJson(json['paying_agent'])
         : null;
     receivePaymentsOperator =
         json['receive_payments_operator'] != null
-            ? new ReceivePaymentsOperator.fromJson(
+            ? ReceivePaymentsOperator.fromJson(
                 json['receive_payments_operator'])
             : null;
     moneyTransferOperator = json['money_transfer_operator'] != null
-        ? new MoneyTransferOperator.fromJson(
+        ? MoneyTransferOperator.fromJson(
             json['money_transfer_operator'])
         : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['type'] = this.type;
-    if (this.payingAgent != null) {
-      data['paying_agent'] = this.payingAgent!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['type'] = type;
+    if (payingAgent != null) {
+      data['paying_agent'] = payingAgent!.toJson();
     }
-    if (this.receivePaymentsOperator != null) {
+    if (receivePaymentsOperator != null) {
       data['receive_payments_operator'] =
-          this.receivePaymentsOperator!.toJson();
+          receivePaymentsOperator!.toJson();
     }
-    if (this.moneyTransferOperator != null) {
+    if (moneyTransferOperator != null) {
       data['money_transfer_operator'] =
-          this.moneyTransferOperator!.toJson();
+          moneyTransferOperator!.toJson();
     }
     return data;
   }
@@ -252,9 +249,9 @@ class PayingAgent {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['operation'] = this.operation;
-    data['phones'] = this.phones;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['operation'] = operation;
+    data['phones'] = phones;
     return data;
   }
 }
@@ -269,8 +266,8 @@ class ReceivePaymentsOperator {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['phones'] = this.phones;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['phones'] = phones;
     return data;
   }
 }
@@ -292,11 +289,11 @@ class MoneyTransferOperator {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['phones'] = this.phones;
-    data['name'] = this.name;
-    data['address'] = this.address;
-    data['inn'] = this.inn;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['phones'] = phones;
+    data['name'] = name;
+    data['address'] = address;
+    data['inn'] = inn;
     return data;
   }
 }
@@ -344,12 +341,12 @@ class Items {
     paymentMethod = json['payment_method'];
     paymentObject = json['payment_object'];
     nomenclatureCode = json['nomenclature_code'];
-    vat = json['vat'] != null ? new Vat.fromJson(json['vat']) : null;
+    vat = json['vat'] != null ? Vat.fromJson(json['vat']) : null;
     agentInfo = json['agent_info'] != null
-        ? new AgentInfo.fromJson(json['agent_info'])
+        ? AgentInfo.fromJson(json['agent_info'])
         : null;
     supplierInfo = json['supplier_info'] != null
-        ? new ReceivePaymentsOperator.fromJson(json['supplier_info'])
+        ? ReceivePaymentsOperator.fromJson(json['supplier_info'])
         : null;
     userData = json['user_data'];
     excise = json['excise'];
@@ -358,28 +355,28 @@ class Items {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['price'] = this.price;
-    data['quantity'] = this.quantity;
-    data['sum'] = this.sum;
-    data['measurement_unit'] = this.measurementUnit;
-    data['payment_method'] = this.paymentMethod;
-    data['payment_object'] = this.paymentObject;
-    data['nomenclature_code'] = this.nomenclatureCode;
-    if (this.vat != null) {
-      data['vat'] = this.vat!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['name'] = name;
+    data['price'] = price;
+    data['quantity'] = quantity;
+    data['sum'] = sum;
+    data['measurement_unit'] = measurementUnit;
+    data['payment_method'] = paymentMethod;
+    data['payment_object'] = paymentObject;
+    data['nomenclature_code'] = nomenclatureCode;
+    if (vat != null) {
+      data['vat'] = vat!.toJson();
     }
-    if (this.agentInfo != null) {
-      data['agent_info'] = this.agentInfo!.toJson();
+    if (agentInfo != null) {
+      data['agent_info'] = agentInfo!.toJson();
     }
-    if (this.supplierInfo != null) {
-      data['supplier_info'] = this.supplierInfo!.toJson();
+    if (supplierInfo != null) {
+      data['supplier_info'] = supplierInfo!.toJson();
     }
-    data['user_data'] = this.userData;
-    data['excise'] = this.excise;
-    data['country_code'] = this.countryCode;
-    data['declaration_number'] = this.declarationNumber;
+    data['user_data'] = userData;
+    data['excise'] = excise;
+    data['country_code'] = countryCode;
+    data['declaration_number'] = declarationNumber;
     return data;
   }
 }
@@ -396,9 +393,9 @@ class Vat {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['type'] = this.type;
-    data['sum'] = this.sum;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['type'] = type;
+    data['sum'] = sum;
     return data;
   }
 }
@@ -417,10 +414,10 @@ class SupplierInfo {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['phones'] = this.phones;
-    data['name'] = this.name;
-    data['inn'] = this.inn;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['phones'] = phones;
+    data['name'] = name;
+    data['inn'] = inn;
     return data;
   }
 }
@@ -437,9 +434,9 @@ class Payments {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['type'] = this.type;
-    data['sum'] = this.sum;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['type'] = type;
+    data['sum'] = sum;
     return data;
   }
 }
@@ -456,9 +453,9 @@ class AdditionalUserProps {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['value'] = this.value;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['name'] = name;
+    data['value'] = value;
     return data;
   }
 }

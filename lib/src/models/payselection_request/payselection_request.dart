@@ -1,10 +1,10 @@
 
 import 'dart:convert';
 
-import '../crypto_module.dart';
-import 'customer_info.dart';
-import 'payment_data.dart';
-import 'receipt_data.dart';
+import '../../crypto_module.dart';
+import '../customer_info/customer_info.dart';
+import '../payment_data/payment_data.dart';
+import '../receipt_data/receipt_data.dart';
 
 class PublicPayRequest {
   String publicKey;
