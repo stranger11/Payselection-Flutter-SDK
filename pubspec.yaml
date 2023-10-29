@@ -1,0 +1,42 @@
+name: payselection_sdk
+description: A new Flutter project.
+repository: https://github.com/stranger11/Payselection-Flutter-SDK
+version: 0.0.1
+homepage:
+
+environment:
+  sdk: '>=3.1.2 <4.0.0'
+  flutter: '>=3.3.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  webview_flutter: ^4.4.1
+  pointycastle: ^3.7.3
+  uuid: ^4.0.0
+  http: ^1.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+
+
+flutter:
+  plugin:
+    platforms:
+      android:
+        package: com.example.payselection_sdk
+        pluginClass: PayselectionSdkPlugin
+      ios:
+        pluginClass: PayselectionSdkPlugin
+      linux:
+        pluginClass: PayselectionSdkPlugin
+      macos:
+        pluginClass: PayselectionSdkPlugin
+      windows:
+        pluginClass: PayselectionSdkPluginCApi
+      web:
+        pluginClass: PayselectionSdkWeb
+        fileName: payselection_sdk_web.dart
+
