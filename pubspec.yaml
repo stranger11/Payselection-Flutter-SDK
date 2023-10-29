@@ -21,22 +21,3 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^2.0.0
 
-
-flutter:
-  plugin:
-    platforms:
-      android:
-        package: com.example.payselection_sdk
-        pluginClass: PayselectionSdkPlugin
-      ios:
-        pluginClass: PayselectionSdkPlugin
-      linux:
-        pluginClass: PayselectionSdkPlugin
-      macos:
-        pluginClass: PayselectionSdkPlugin
-      windows:
-        pluginClass: PayselectionSdkPluginCApi
-      web:
-        pluginClass: PayselectionSdkWeb
-        fileName: payselection_sdk_web.dart
-
