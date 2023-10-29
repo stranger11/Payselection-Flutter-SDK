@@ -6,9 +6,6 @@
 
 #include "generated_plugin_registrant.h"
 
-#include <payselection_sdk/payselection_sdk_plugin_c_api.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
-  PayselectionSdkPluginCApiRegisterWithRegistrar(
-      registry->GetRegistrarForPlugin("PayselectionSdkPluginCApi"));
 }
