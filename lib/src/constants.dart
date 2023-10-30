@@ -6,7 +6,6 @@ class NetworkSettings {
   NetworkSettings({required this.siteId, required this.reqId});
 
   static const String domain = 'https://pgw.payselection.com';
-  static const String apiPath = '/';
   static const String xSiteId= 'X-SITE-ID';
   static const String xReqId = 'X-REQUEST-ID';
 

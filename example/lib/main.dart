@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:payselection_sdk/payselection.dart';
 import 'package:uuid/uuid.dart';
 
-
 void main() {
   runApp(const MyApp());
 }
@@ -47,7 +46,9 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> _pay() async {
     config = PaySelection(
         publicKey:
-            '04bd07d3547bd1f90ddbd985feaaec59420cabd082ff5215f34fd1c89c5d8562e8f5e97a5df87d7c99bc6f16a946319f61f9eb3ef7cf355d62469edb96c8bea09e',
+        '04bd07d3547bd1f90ddbd985feaaec59420cabd082ff5215f34fd1c89c5d8562e8f5e97a5df87d7c99bc6f16a946319f61f9eb3ef7cf355d62469edb96c8bea09e',
+        //    '04bd07d3547bd1f90ddbd985deaaec59420cabd082ff5215f34fd1c89c5d8562e8f5e97a5df87d7c99bc6f16a946319f61f9eb3ef7cf355d62469edb96c8bea09e',
+        //bad key
         xSiteId: '21044',
         xRequestId: uuid.v4(),
         isDebug: true);
@@ -64,8 +65,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 TransactionDetails(amount: "10", currency: "RUB"),
             cardDetails: CardDetails(
                 cardHolderName: "TEST CARD",
-                cardNumber: "5260111696757102",    //success card
-         //    cardNumber: '2408684917843810',     //fail card
+                cardNumber: "5260111696757102",
+                //success card
+                //    cardNumber: '2408684917843810',     //fail card
                 cvc: "123",
                 expMonth: "12",
                 expYear: "24"),
@@ -86,23 +88,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final response = await config.pay(request);
 
-    if (response.data is PublicPayResponse) {
-      final pbResponse = response.data as PublicPayResponse;
-      final redirectUrl = pbResponse.redirectUrl;
-
-      if (redirectUrl != null) {
-        if (context.mounted) {
-          await WebViewHelper.openWebView(context, redirectUrl).then(
-              (value) => ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                      content: Text(value == true
-                          ? 'Succes transaction'
-                          : 'Fail transaction'))));
-        }
+    final redirectUrl = response.data?.redirectUrl;
+    if (redirectUrl != null) {
+      if (context.mounted) {
+        await WebViewHelper.openWebView(context, redirectUrl).then(
+            (value) => ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                    content: Text(value == true
+                        ? 'Succes transaction'
+                        : 'Fail transaction'))));
       }
     }
 
-    print(response.data?.toJson);
+    print(response.data?.toJson());
   }
 
   @override

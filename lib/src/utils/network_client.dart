@@ -18,7 +18,9 @@ class NetworkClient {
     final requestBody = jsonEncode(request);
 
     final settings = NetworkSettings(
-        siteId: config.xSiteId, reqId: config.xRequestId);
+        siteId: config.xSiteId,
+        reqId: config.xRequestId
+    );
 
     http.Response rawResponse;
     try {

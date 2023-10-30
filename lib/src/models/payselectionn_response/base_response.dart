@@ -8,7 +8,7 @@ class BaseResponse<M> {
   factory BaseResponse.fromJson(Map<String, dynamic> json) =>
       BaseResponse(data: _dataFromJson(json, M));
 
-  static I _dataFromJson<I, T>(json, Type type) {
+  static I _dataFromJson<I>(json, Type type) {
     if (type == PublicPayResponse) {
       return PublicPayResponse.fromJson(json) as I;
     }
@@ -18,6 +18,12 @@ class BaseResponse<M> {
     return json as I;
   }
 }
+
+
+
+
+
+
 
 
 

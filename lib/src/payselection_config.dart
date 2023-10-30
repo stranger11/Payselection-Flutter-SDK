@@ -22,6 +22,14 @@ class PaySelectionConfig {
           isDebug: isDebug);
 }
 
+
+
+
+
+
+
+
+
 class PaySelection {
   final String publicKey;
   final String xSiteId;
@@ -29,6 +37,14 @@ class PaySelection {
   final bool isDebug;
 
   final NetworkClient _network;
+
+  factory PaySelection.config(String publicKey, String xSiteId,
+      String xRequestId, bool isDebug) =>
+      PaySelection(
+          publicKey: publicKey,
+          xSiteId: xSiteId,
+          xRequestId: xRequestId,
+          isDebug: isDebug);
 
   PaySelection(
       {required this.publicKey,
@@ -38,19 +54,14 @@ class PaySelection {
       : _network = NetworkClient(PaySelectionConfig.config(
             publicKey, xSiteId, xRequestId, isDebug));
 
-  Future<BaseResponse> pay(PublicPayRequest request) async {
-    final response = await _network<BaseResponse>(
-      request.toJson(publicKey),
-      (json) {
-        if (json.containsKey('Code')) {
-          return BaseResponse<PublicPayError>(
-              data: PublicPayError.fromJson(json));
-        } else {
-          return BaseResponse<PublicPayResponse>(
-              data: PublicPayResponse.fromJson(json));
-        }
-      },
-    );
+
+
+  Future<BaseResponse<PublicPayResponse>> pay(
+      PublicPayRequest request) async {
+    final response = await _network<BaseResponse<PublicPayResponse>>(
+        request.toJson(publicKey), (json) {
+      return BaseResponse.fromJson((json));
+    });
     return response;
   }
 }
