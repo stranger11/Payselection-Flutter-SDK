@@ -17,14 +17,15 @@ class WebViewHelper {
           onWebResourceError: (WebResourceError error) {},
         ),
       )
-      ..setOnConsoleMessage((message) {
-        if (message.message.contains('WidgetStatus:ThreeDsLoaded | TransactionStatus:success')) {
-          Navigator.pop(context, true);
-        } else if (message.message.contains('WidgetStatus:ThreeDsLoaded | TransactionStatus:error')) {
-          Navigator.pop(context, false);
-        }
-      })
       ..loadRequest(Uri.parse(url));
+
+    controller.setOnConsoleMessage((message) {
+      if (message.message.contains('TransactionStatus:success')) {
+        Navigator.pop(context, true);
+      } else if (message.message.contains('TransactionStatus:error')) {
+        Navigator.pop(context, false);
+      }
+    });
 
     final result = showDialog<bool?>(
         context: context,
