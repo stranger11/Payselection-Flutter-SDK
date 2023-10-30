@@ -4,19 +4,6 @@ import 'dart:typed_data';
 import 'package:convert/convert.dart';
 import "package:pointycastle/export.dart";
 
-class EncryptedData {
-  final Uint8List encrypted;
-  final Uint8List key;
-  final Uint8List iv;
-  final Uint8List tag;
-
-  const EncryptedData(
-      {required this.encrypted,
-      required this.key,
-      required this.iv,
-      required this.tag});
-}
-
 class Encryption {
   final ECCurve_secp256k1 _ecCurve = ECCurve_secp256k1();
 
@@ -117,12 +104,8 @@ class Encryption {
     try {
       final encryptedData =
           paddedCipher.process(Uint8List.fromList(utf8.encode(data)));
-      final mac = hmacSha256(
-          sharedKeyHash.sublist(32, 64),
-          iv,
-          ephemeralPublicKey!,
-          encryptedData
-      );
+      final mac = hmacSha256(sharedKeyHash.sublist(32, 64), iv,
+          ephemeralPublicKey!, encryptedData);
       return EncryptedData(
           encrypted: encryptedData,
           key: ephemeralPublicKey,
@@ -152,3 +135,18 @@ class Encryption {
     return base64Encode(jsonEncode(sendData).codeUnits);
   }
 }
+
+
+class EncryptedData {
+  final Uint8List encrypted;
+  final Uint8List key;
+  final Uint8List iv;
+  final Uint8List tag;
+
+  const EncryptedData(
+      {required this.encrypted,
+        required this.key,
+        required this.iv,
+        required this.tag});
+}
+

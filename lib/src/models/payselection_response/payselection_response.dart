@@ -1,4 +1,4 @@
-class PaySelectionResponse {
+class PublicPayResponse {
   String? orderId;
   String? transactionId;
   String? amount;
@@ -6,7 +6,7 @@ class PaySelectionResponse {
   String? redirectUrl;
   String? transactionSecretKey;
 
-  PaySelectionResponse(
+  PublicPayResponse(
       {this.orderId,
         this.transactionId,
         this.amount,
@@ -14,7 +14,7 @@ class PaySelectionResponse {
         this.redirectUrl,
         this.transactionSecretKey});
 
-  PaySelectionResponse.fromJson(Map<String, dynamic> json) {
+  PublicPayResponse.fromJson(Map<String, dynamic> json) {
     orderId = json['OrderId'];
     transactionId = json['TransactionId'];
     amount = json['Amount'];
@@ -24,13 +24,13 @@ class PaySelectionResponse {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['OrderId'] = this.orderId;
-    data['TransactionId'] = this.transactionId;
-    data['Amount'] = this.amount;
-    data['Currency'] = this.currency;
-    data['RedirectUrl'] = this.redirectUrl;
-    data['TransactionSecretKey'] = this.transactionSecretKey;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['OrderId'] = orderId;
+    data['TransactionId'] = transactionId;
+    data['Amount'] = amount;
+    data['Currency'] = currency;
+    data['RedirectUrl'] = redirectUrl;
+    data['TransactionSecretKey'] = transactionSecretKey;
     return data;
   }
 }
