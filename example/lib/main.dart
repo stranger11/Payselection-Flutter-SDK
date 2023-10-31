@@ -65,9 +65,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 TransactionDetails(amount: "10", currency: "RUB"),
             cardDetails: CardDetails(
                 cardHolderName: "TEST CARD",
-                cardNumber: "5260111696757102",
-                //success card
-                //    cardNumber: '2408684917843810',     //fail card
+               // cardNumber: "5260111696757102", //success card
+                    cardNumber: '2408684917843810',     //fail card
                 cvc: "123",
                 expMonth: "12",
                 expYear: "24"),

@@ -20,7 +20,7 @@ class WebViewHelper {
       if (message.message.contains('TransactionStatus:success')) {
         Navigator.pop(context, true);
       } else if (message.message
-          .contains('TransactionStatus:error')) {
+          .contains('TransactionStatus:fail')) {
         Navigator.pop(context, false);
       }
     });
