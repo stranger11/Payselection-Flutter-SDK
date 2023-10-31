@@ -26,14 +26,13 @@ class PublicPayRequest {
         'Description': description,
         'Amount': paymentData.transactionDetails.amount,
         'Currency': paymentData.transactionDetails.currency,
-        "PaymentMethod": "Token",
-        'PaymentDetails': Details(
-                type: 'Internal',
-                payToken: createCryptogram(paymentData, publicPay))
-            .toJson(),
+        "PaymentMethod": "Cryptogram",
+        'PaymentDetails':
+            Details(value: createCryptogram(paymentData, publicPay))
+                .toJson(),
         'CustomerInfo': customerInfo.toJson(),
         'rebillFlag': rebillFlag,
-        if (this.receiptData != null) 'ReceiptData': receiptData
+        if (receiptData != null) 'ReceiptData': receiptData?.toJson()
       };
 
   String createCryptogram(PaymentData data, String publicKey) {
@@ -43,13 +42,11 @@ class PublicPayRequest {
 }
 
 class Details {
-  String type;
-  String payToken;
+  String value;
 
-  Details({required this.type, required this.payToken});
+  Details({required this.value});
 
-  Map<String, dynamic> toJson() =>
-      {'Type': type, 'PayToken': payToken};
+  Map<String, dynamic> toJson() => {'Value': value};
 }
 
 class PaymentDetails {

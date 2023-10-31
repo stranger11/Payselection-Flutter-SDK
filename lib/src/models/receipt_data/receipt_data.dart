@@ -1,114 +1,60 @@
 class ReceiptData {
-  String? timestamp;
+  String timestamp;
   String? externalId;
-  Receipt? receipt;
+  Receipt receipt;
 
-  ReceiptData({this.timestamp, this.externalId, this.receipt});
-
-  ReceiptData.fromJson(Map<String, dynamic> json) {
-    timestamp = json['timestamp'];
-    externalId = json['external_id'];
-    receipt = json['receipt'] != null
-        ? Receipt.fromJson(json['receipt'])
-        : null;
-  }
+  ReceiptData(
+      {required this.timestamp,
+      this.externalId,
+      required this.receipt});
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['timestamp'] = timestamp;
     data['external_id'] = externalId;
-    if (receipt != null) {
-      data['receipt'] = receipt!.toJson();
-    }
+    data['receipt'] = receipt.toJson();
     return data;
   }
 }
 
 class Receipt {
-  Client? client;
-  Company? company;
+  Client client;
+  Company company;
   AgentInfo? agentInfo;
   ReceivePaymentsOperator? supplierInfo;
-  List<Items>? items;
-  List<Payments>? payments;
+  List<Items> items;
+  List<Payments> payments;
   List<Vats>? vats;
-  double? total;
+  double total;
   String? additionalCheckProps;
   String? cashier;
   AdditionalUserProps? additionalUserProps;
 
   Receipt(
-      {this.client,
-      this.company,
+      {required this.client,
+      required this.company,
       this.agentInfo,
       this.supplierInfo,
-      this.items,
-      this.payments,
+      required this.items,
+      required this.payments,
       this.vats,
-      this.total,
+      required this.total,
       this.additionalCheckProps,
       this.cashier,
       this.additionalUserProps});
 
-  Receipt.fromJson(Map<String, dynamic> json) {
-    client = json['client'] != null
-        ? Client.fromJson(json['client'])
-        : null;
-    company = json['company'] != null
-        ? Company.fromJson(json['company'])
-        : null;
-    agentInfo = json['agent_info'] != null
-        ? AgentInfo.fromJson(json['agent_info'])
-        : null;
-    supplierInfo = json['supplier_info'] != null
-        ? ReceivePaymentsOperator.fromJson(json['supplier_info'])
-        : null;
-    if (json['items'] != null) {
-      items = <Items>[];
-      json['items'].forEach((v) {
-        items!.add(Items.fromJson(v));
-      });
-    }
-    if (json['payments'] != null) {
-      payments = <Payments>[];
-      json['payments'].forEach((v) {
-        payments!.add(Payments.fromJson(v));
-      });
-    }
-    if (json['vats'] != null) {
-      vats = <Vats>[];
-      json['vats'].forEach((v) {
-        vats!.add(Vats.fromJson(v));
-      });
-    }
-    total = json['total'];
-    additionalCheckProps = json['additional_check_props'];
-    cashier = json['cashier'];
-    additionalUserProps = json['additional_user_props'] != null
-        ? AdditionalUserProps.fromJson(json['additional_user_props'])
-        : null;
-  }
-
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (client != null) {
-      data['client'] = client!.toJson();
-    }
-    if (company != null) {
-      data['company'] = company!.toJson();
-    }
+    data['client'] = client.toJson();
+    data['company'] = company.toJson();
     if (agentInfo != null) {
       data['agent_info'] = agentInfo!.toJson();
     }
     if (supplierInfo != null) {
       data['supplier_info'] = supplierInfo!.toJson();
     }
-    if (items != null) {
-      data['items'] = items!.map((v) => v.toJson()).toList();
-    }
-    if (payments != null) {
-      data['payments'] = payments!.map((v) => v.toJson()).toList();
-    }
+    data['items'] = items.map((v) => v.toJson()).toList();
+    data['payments'] = payments.map((v) => v.toJson()).toList();
     if (vats != null) {
       data['vats'] = vats!.map((v) => v.toJson()).toList();
     }
@@ -123,15 +69,10 @@ class Receipt {
 }
 
 class Vats {
-  String? type;
-  double? sum;
+  String type;
+  double sum;
 
-  Vats({this.type, this.sum});
-
-  Vats.fromJson(Map<String, dynamic> json) {
-    type = json['type'];
-    sum = json['sum'];
-  }
+  Vats({required this.type, required this.sum});
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -149,13 +90,6 @@ class Client {
 
   Client({this.name, this.inn, this.email, this.phone});
 
-  Client.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    inn = json['inn'];
-    email = json['email'];
-    phone = json['phone'];
-  }
-
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['name'] = name;
@@ -169,17 +103,14 @@ class Client {
 class Company {
   String? email;
   String? sno;
-  String? inn;
-  String? paymentAddress;
+  String inn;
+  String paymentAddress;
 
-  Company({this.email, this.sno, this.inn, this.paymentAddress});
-
-  Company.fromJson(Map<String, dynamic> json) {
-    email = json['email'];
-    sno = json['sno'];
-    inn = json['inn'];
-    paymentAddress = json['payment_address'];
-  }
+  Company(
+      {this.email,
+      this.sno,
+      required this.inn,
+      required this.paymentAddress});
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -202,22 +133,6 @@ class AgentInfo {
       this.payingAgent,
       this.receivePaymentsOperator,
       this.moneyTransferOperator});
-
-  AgentInfo.fromJson(Map<String, dynamic> json) {
-    type = json['type'];
-    payingAgent = json['paying_agent'] != null
-        ? PayingAgent.fromJson(json['paying_agent'])
-        : null;
-    receivePaymentsOperator =
-        json['receive_payments_operator'] != null
-            ? ReceivePaymentsOperator.fromJson(
-                json['receive_payments_operator'])
-            : null;
-    moneyTransferOperator = json['money_transfer_operator'] != null
-        ? MoneyTransferOperator.fromJson(
-            json['money_transfer_operator'])
-        : null;
-  }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -261,10 +176,6 @@ class ReceivePaymentsOperator {
 
   ReceivePaymentsOperator({this.phones});
 
-  ReceivePaymentsOperator.fromJson(Map<String, dynamic> json) {
-    phones = json['phones'].cast<String>();
-  }
-
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['phones'] = phones;
@@ -299,15 +210,15 @@ class MoneyTransferOperator {
 }
 
 class Items {
-  String? name;
-  int? price;
-  double? quantity;
-  double? sum;
+  String name;
+  int price;
+  double quantity;
+  double sum;
   String? measurementUnit;
-  String? paymentMethod;
-  String? paymentObject;
+  String paymentMethod;
+  String paymentObject;
   String? nomenclatureCode;
-  Vat? vat;
+  Vat vat;
   AgentInfo? agentInfo;
   ReceivePaymentsOperator? supplierInfo;
   String? userData;
@@ -316,43 +227,21 @@ class Items {
   String? declarationNumber;
 
   Items(
-      {this.name,
-      this.price,
-      this.quantity,
-      this.sum,
+      {required this.name,
+      required this.price,
+      required this.quantity,
+      required this.sum,
       this.measurementUnit,
-      this.paymentMethod,
-      this.paymentObject,
+      required this.paymentMethod,
+      required this.paymentObject,
       this.nomenclatureCode,
-      this.vat,
+      required this.vat,
       this.agentInfo,
       this.supplierInfo,
       this.userData,
       this.excise,
       this.countryCode,
       this.declarationNumber});
-
-  Items.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    price = json['price'];
-    quantity = json['quantity'];
-    sum = json['sum'];
-    measurementUnit = json['measurement_unit'];
-    paymentMethod = json['payment_method'];
-    paymentObject = json['payment_object'];
-    nomenclatureCode = json['nomenclature_code'];
-    vat = json['vat'] != null ? Vat.fromJson(json['vat']) : null;
-    agentInfo = json['agent_info'] != null
-        ? AgentInfo.fromJson(json['agent_info'])
-        : null;
-    supplierInfo = json['supplier_info'] != null
-        ? ReceivePaymentsOperator.fromJson(json['supplier_info'])
-        : null;
-    userData = json['user_data'];
-    excise = json['excise'];
-    countryCode = json['country_code'];
-    declarationNumber = json['declaration_number'];
-  }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -364,9 +253,7 @@ class Items {
     data['payment_method'] = paymentMethod;
     data['payment_object'] = paymentObject;
     data['nomenclature_code'] = nomenclatureCode;
-    if (vat != null) {
-      data['vat'] = vat!.toJson();
-    }
+    data['vat'] = vat.toJson();
     if (agentInfo != null) {
       data['agent_info'] = agentInfo!.toJson();
     }
@@ -423,15 +310,10 @@ class SupplierInfo {
 }
 
 class Payments {
-  int? type;
-  double? sum;
+  int type;
+  double sum;
 
-  Payments({this.type, this.sum});
-
-  Payments.fromJson(Map<String, dynamic> json) {
-    type = json['type'];
-    sum = json['sum'];
-  }
+  Payments({required this.type, required this.sum});
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
@@ -442,15 +324,10 @@ class Payments {
 }
 
 class AdditionalUserProps {
-  String? name;
-  String? value;
+  String name;
+  String value;
 
-  AdditionalUserProps({this.name, this.value});
-
-  AdditionalUserProps.fromJson(Map<String, dynamic> json) {
-    name = json['name'];
-    value = json['value'];
-  }
+  AdditionalUserProps({required this.name, required this.value});
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
