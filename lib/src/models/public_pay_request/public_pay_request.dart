@@ -1,11 +1,14 @@
 import 'dart:convert';
 
+import 'package:payselection_sdk/src/models/payselection_request/payselection_request.dart';
+
+import '../../constants.dart';
 import '../../crypto_module.dart';
 import '../customer_info/customer_info.dart';
 import '../payment_data/payment_data.dart';
 import '../receipt_data/receipt_data.dart';
 
-class PublicPayRequest {
+class PublicPayRequest extends PaySelectionRequest{
   String orderId;
   String description;
   PaymentData paymentData;
@@ -21,14 +24,16 @@ class PublicPayRequest {
       required this.rebillFlag,
       this.receiptData});
 
-  Map<String, dynamic> toJson(String publicPay) => {
+
+  @override
+  Map<String, dynamic> toJson(String pKey) => {
         'OrderId': orderId,
         'Description': description,
         'Amount': paymentData.transactionDetails.amount,
         'Currency': paymentData.transactionDetails.currency,
         "PaymentMethod": "Cryptogram",
         'PaymentDetails':
-            Details(value: createCryptogram(paymentData, publicPay))
+            Details(value: createCryptogram(paymentData, pKey))
                 .toJson(),
         'CustomerInfo': customerInfo.toJson(),
         'rebillFlag': rebillFlag,
@@ -39,6 +44,9 @@ class PublicPayRequest {
     return Encryption()
         .createCryptogram(jsonEncode(data).toString(), publicKey);
   }
+
+  @override
+  String get apiMethod => ApiMethods.publicPay;
 }
 
 class Details {

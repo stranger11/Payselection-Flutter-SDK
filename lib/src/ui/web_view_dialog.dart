@@ -17,7 +17,8 @@ class WebViewHelper {
       ..loadRequest(Uri.parse(url));
 
     controller.setOnConsoleMessage((message) {
-      if (message.message.contains('TransactionStatus:success')) {
+      if (message.message
+          .contains('TransactionStatus:success')) {
         Navigator.pop(context, true);
       } else if (message.message
           .contains('TransactionStatus:fail')) {

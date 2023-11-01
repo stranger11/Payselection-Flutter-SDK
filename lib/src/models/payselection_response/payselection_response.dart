@@ -34,20 +34,18 @@ class PublicPayResponse {
     addDetails = json['AddDetails'];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['Code'] = code;
-    if (data['Code'] != null) {
-      data['Description'] = description;
-      data['AddDetails'] = addDetails;
-    } else {
-      data['OrderId'] = orderId;
-      data['TransactionId'] = transactionId;
-      data['Amount'] = amount;
-      data['Currency'] = currency;
-      data['RedirectUrl'] = redirectUrl;
-      data['TransactionSecretKey'] = transactionSecretKey;
-    }
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+        if (code != null) ...{
+          'Code': code,
+          'Description': description,
+          'AddDetails': addDetails,
+        } else ...{
+          'OrderId': orderId,
+          'TransactionId': transactionId,
+          'Amount': amount,
+          'Currency': currency,
+          'RedirectUrl': redirectUrl,
+          'TransactionSecretKey': transactionSecretKey,
+        }
+      };
 }

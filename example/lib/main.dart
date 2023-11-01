@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:payselection_sdk/payselection.dart';
 import 'package:uuid/uuid.dart';
@@ -83,7 +85,9 @@ class _MyHomePageState extends State<MyHomePage> {
             isSendReceipt: false,
             receiptEmail: 'paaa@mail.ru',
             ip: '8.8.8.8'),
-        rebillFlag: false);
+        rebillFlag: false
+
+    );
 
     final response = await config.pay(request);
 
@@ -99,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
       }
     }
 
-    print(response.data?.toJson());
+    log(response.data?.toJson().toString() ?? '');
   }
 
   @override

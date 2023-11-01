@@ -24,12 +24,6 @@ class PaySelectionConfig {
 
 
 
-
-
-
-
-
-
 class PaySelection {
   final String publicKey;
   final String xSiteId;
@@ -59,7 +53,7 @@ class PaySelection {
   Future<BaseResponse<PublicPayResponse>> pay(
       PublicPayRequest request) async {
     final response = await _network<BaseResponse<PublicPayResponse>>(
-        request.toJson(publicKey), (json) {
+        request, (json) {
       return BaseResponse.fromJson((json));
     });
     return response;
