@@ -8,12 +8,13 @@ import '../customer_info/customer_info.dart';
 import '../payment_data/payment_data.dart';
 import '../receipt_data/receipt_data.dart';
 
-class PublicPayRequest extends PaySelectionRequest{
+class PublicPayRequest extends PaySelectionRequest {
   String orderId;
   String description;
   PaymentData paymentData;
   CustomerInfo customerInfo;
   bool rebillFlag;
+  Map<String, dynamic>? extraData;
   ReceiptData? receiptData;
 
   PublicPayRequest(
@@ -22,8 +23,8 @@ class PublicPayRequest extends PaySelectionRequest{
       required this.paymentData,
       required this.customerInfo,
       required this.rebillFlag,
+      this.extraData,
       this.receiptData});
-
 
   @override
   Map<String, dynamic> toJson(String pKey) => {
@@ -36,6 +37,7 @@ class PublicPayRequest extends PaySelectionRequest{
             Details(value: createCryptogram(paymentData, pKey))
                 .toJson(),
         'CustomerInfo': customerInfo.toJson(),
+        if (extraData != null) "ExtraData": extraData,
         'rebillFlag': rebillFlag,
         if (receiptData != null) 'ReceiptData': receiptData?.toJson()
       };
