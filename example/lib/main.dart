@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:payselection_sdk/payselection.dart';
@@ -37,23 +36,39 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final uuid = const Uuid();
-  late PaySelection config;
+  late PaySelectionSDK config;
 
   @override
   void initState() {
     super.initState();
-    _pay();
+
+    _pay().proceedResult(
+
+        (responseData) => showDialog(
+            context: context,
+            builder: (builder) => ThreeDS(
+                  url: responseData.redirectUrl ?? '',
+                )).then((value) => ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(
+                content: Text(value == true
+                    ? 'Success transaction'
+                    : 'Fail transaction')))),
+
+        (errorCode) => ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(errorCode))));
   }
 
-  Future<void> _pay() async {
-    config = PaySelection(
+  Future<BaseResponse<PublicPayResponse>> _pay() async {
+
+    config = PaySelectionSDK(
+      PaySelectionConfig.credential(
         publicKey:
             '04bd07d3547bd1f90ddbd985feaaec59420cabd082ff5215f34fd1c89c5d8562e8f5e97a5df87d7c99bc6f16a946319f61f9eb3ef7cf355d62469edb96c8bea09e',
         // '04bd07d3547bd1f90ddbd985deaaec59420cabd082ff5215f34fd1c89c5d8562e8f5e97a5df87d7c99bc6f16a946319f61f9eb3ef7cf355d62469edb96c8bea09e',
         //bad key
         xSiteId: '21044',
         xRequestId: uuid.v4(),
-        isDebug: true);
+        isDebug: true));
 
     final int expiration = const Duration(days: 1).inMilliseconds;
     int messageExpiration =
@@ -86,28 +101,12 @@ class _MyHomePageState extends State<MyHomePage> {
             isSendReceipt: false,
             receiptEmail: 'paaa@mail.ru',
             ip: '8.8.8.8'),
-        extraData: {
-          "Name": "Nikolay",
-          "Surname": "Panov",
-          "Age": 32
-        },
+        extraData: {"Name": "Nikolay", "Surname": "Panov", "Age": 32},
         rebillFlag: false);
 
     final response = await config.pay(request);
 
-    final redirectUrl = response.data?.redirectUrl;
-    if (redirectUrl != null) {
-      if (context.mounted) {
-        await WebViewHelper.openWebView(context, redirectUrl).then(
-            (value) => ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                    content: Text(value == true
-                        ? 'Succes transaction'
-                        : 'Fail transaction'))));
-      }
-    }
-
-    log(response.data?.toJson().toString() ?? '');
+    return response;
   }
 
   @override

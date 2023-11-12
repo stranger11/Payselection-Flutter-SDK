@@ -1,5 +1,7 @@
 library payselection;
 
-export 'src/models/models.dart';
-export 'src/payselection_config.dart';
-export 'src/ui/web_view_dialog.dart';
+export 'src/core/models/models.dart';
+export 'src/core/payselection_sdk.dart';
+export 'src/utils/extensions.dart';
+export 'src/utils/ui/three_ds.dart';
+export 'src/core/payselection_config.dart';

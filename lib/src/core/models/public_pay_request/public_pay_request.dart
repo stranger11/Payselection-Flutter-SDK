@@ -1,11 +1,10 @@
 import 'dart:convert';
 
-import 'package:payselection_sdk/src/models/payselection_request/payselection_request.dart';
-
-import '../../constants.dart';
-import '../../crypto_module.dart';
+import '../../../constants.dart';
+import '../../../utils/crypto_module.dart';
 import '../customer_info/customer_info.dart';
 import '../payment_data/payment_data.dart';
+import '../payselection_request/payselection_request.dart';
 import '../receipt_data/receipt_data.dart';
 
 class PublicPayRequest extends PaySelectionRequest {
@@ -34,7 +33,7 @@ class PublicPayRequest extends PaySelectionRequest {
         'Currency': paymentData.transactionDetails.currency,
         "PaymentMethod": "Cryptogram",
         'PaymentDetails':
-            Details(value: createCryptogram(paymentData, pKey))
+            PaymentDetails(value: createCryptogram(paymentData, pKey))
                 .toJson(),
         'CustomerInfo': customerInfo.toJson(),
         if (extraData != null) "ExtraData": extraData,
@@ -51,18 +50,11 @@ class PublicPayRequest extends PaySelectionRequest {
   String get apiMethod => ApiMethods.publicPay;
 }
 
-class Details {
+class PaymentDetails {
   String value;
 
-  Details({required this.value});
+  PaymentDetails({required this.value});
 
   Map<String, dynamic> toJson() => {'Value': value};
 }
 
-class PaymentDetails {
-  final String publicKey;
-  final PublicPayRequest paymentRequest;
-
-  PaymentDetails(
-      {required this.publicKey, required this.paymentRequest});
-}
