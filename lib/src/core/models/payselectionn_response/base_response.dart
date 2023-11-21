@@ -1,3 +1,5 @@
+import 'package:payselection_sdk/src/core/models/transaction_status_response/transaction_status_response.dart';
+
 import '../../../../payselection.dart';
 
 class BaseResponse<M> {
@@ -16,7 +18,7 @@ class BaseResponse<M> {
     return BaseResponse(
       code: json['Code'] as String?,
       description: json['Description'] as String?,
-      addDetails: json['AddDetails'] as AddDetails?,
+      addDetails: AddDetails.fromJson(json),
       data: _dataFromJson(json, M),
     );
   }
@@ -25,20 +27,22 @@ class BaseResponse<M> {
     if (type == PublicPayResponse) {
       return PublicPayResponse.fromJson(json) as I;
     }
+    if (type == TransactionStatusResponse) {
+      return TransactionStatusResponse.fromJson(json) as I;
+    }
     return json as I;
   }
 
-  Map<String, dynamic> toJson() {
-    return _dataToJson(data);
-  }
-
-  dynamic _dataToJson<I>(I data) {
-    if (data is PublicPayResponse) {
-      return data.toJson();
-    }
-
-    return data;
-  }
+  // Map<String, dynamic> toJson() {
+  //   return _dataToJson(data);
+  // }
+  //
+  // dynamic _dataToJson<I>(I data) {
+  //   if (data is BaseResponse) {
+  //     return data.toJson();
+  //   }
+  //   return data;
+  // }
 }
 
 class AddDetails {

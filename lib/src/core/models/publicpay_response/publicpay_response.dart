@@ -18,9 +18,6 @@ class PublicPayResponse extends BaseResponse {
 
   factory PublicPayResponse.fromJson(Map<String, dynamic> json) =>
       PublicPayResponse(
-        code: json['Code'] as String?,
-        description: json['Description'] as String?,
-        addDetails: json['AddDetails'] as AddDetails?,
         orderId: json['OrderId'] as String?,
         transactionId: json['TransactionId'] as String?,
         amount: json['Amount'] as String?,

@@ -48,6 +48,9 @@ class PublicPayRequest extends PaySelectionRequest {
 
   @override
   String get apiMethod => ApiMethods.publicPay;
+
+  @override
+  String get httpMethod => HttpMethods.post;
 }
 
 class PaymentDetails {

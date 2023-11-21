@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:payselection_sdk/payselection.dart';
 import 'package:uuid/uuid.dart';
@@ -17,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme:
-            ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       home: const MyHomePage(title: 'PaySelection-Flutter-SDK'),
@@ -42,28 +41,36 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
 
-    _pay().proceedResult(
+    _pay().proceedResult((responseData) {
+      showDialog(
+          context: context,
+          builder: (builder) =>
+              ThreeDS(
+                url: responseData.redirectUrl ?? '',
+              )).then((value) =>
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(
+              content: Text(value == true
+                  ? 'Success transaction'
+                  : 'Fail transaction'))));
 
-        (responseData) => showDialog(
-            context: context,
-            builder: (builder) => ThreeDS(
-                  url: responseData.redirectUrl ?? '',
-                )).then((value) => ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(
-                content: Text(value == true
-                    ? 'Success transaction'
-                    : 'Fail transaction')))),
+      //Future.delayed(const Duration(milliseconds: 5000), () {
+        config.transactionStatus(TransactionStatusRequest(
+            transactionId: responseData.transactionId ?? "",
+            transactionSecretKey: responseData.transactionSecretKey ??
+                ""));
+     // });
 
-        (errorCode) => ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text(errorCode))));
+    },
+            (errorCode) =>
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(errorCode))));
   }
 
   Future<BaseResponse<PublicPayResponse>> _pay() async {
-
-    config = PaySelectionSDK(
-      PaySelectionConfig.credential(
+    config = PaySelectionSDK(PaySelectionConfig.credential(
         publicKey:
-            '04bd07d3547bd1f90ddbd985feaaec59420cabd082ff5215f34fd1c89c5d8562e8f5e97a5df87d7c99bc6f16a946319f61f9eb3ef7cf355d62469edb96c8bea09e',
+        '04bd07d3547bd1f90ddbd985feaaec59420cabd082ff5215f34fd1c89c5d8562e8f5e97a5df87d7c99bc6f16a946319f61f9eb3ef7cf355d62469edb96c8bea09e',
         // '04bd07d3547bd1f90ddbd985deaaec59420cabd082ff5215f34fd1c89c5d8562e8f5e97a5df87d7c99bc6f16a946319f61f9eb3ef7cf355d62469edb96c8bea09e',
         //bad key
         xSiteId: '21044',
@@ -72,14 +79,16 @@ class _MyHomePageState extends State<MyHomePage> {
 
     final int expiration = const Duration(days: 1).inMilliseconds;
     int messageExpiration =
-        (DateTime.now().millisecondsSinceEpoch + expiration);
+    (DateTime
+        .now()
+        .millisecondsSinceEpoch + expiration);
 
     var request = PublicPayRequest(
         orderId: "SAM_SDK_3",
         description: "test payment",
         paymentData: PaymentData(
             transactionDetails:
-                TransactionDetails(amount: "10", currency: "RUB"),
+            TransactionDetails(amount: "10", currency: "RUB"),
             cardDetails: CardDetails(
                 cardHolderName: "TEST CARD",
                 cardNumber: "5260111696757102",
@@ -113,7 +122,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        backgroundColor: Theme
+            .of(context)
+            .colorScheme
+            .inversePrimary,
         title: Text(widget.title),
       ),
       body: const Center(

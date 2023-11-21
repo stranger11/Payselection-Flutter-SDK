@@ -18,6 +18,12 @@ class NetworkSettings {
   };
 }
 
+abstract final class HttpMethods {
+  static const String post = 'POST';
+  static const String get = 'GET';
+}
+
 abstract final class ApiMethods {
   static const String publicPay = 'payments/requests/public';
+
 }
