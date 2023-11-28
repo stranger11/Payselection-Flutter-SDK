@@ -390,15 +390,15 @@ class SectoralItemProps {
 }
 
 class MarkQuantity {
-  int? numberator;
+  int? numerator;
   int denominator;
 
-  MarkQuantity({this.numberator, required this.denominator});
+  MarkQuantity({this.numerator, required this.denominator});
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (numberator != null) {
-      data['numberator'] = numberator;
+    if (numerator != null) {
+      data['numerator'] = numerator;
     }
     data['denominator'] = denominator;
     return data;
