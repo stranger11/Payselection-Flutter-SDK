@@ -31,7 +31,7 @@ class Receipt2 {
   String? cashier;
   AdditionalUserProps2? additionalUserProps;
   OperatingCheckProps? operatingCheckProps;
-  SectoralCheckProps? sectoralCheckProps;
+  List<SectoralCheckProps>? sectoralCheckProps;
 
   Receipt2(
       {required this.client,
@@ -64,7 +64,7 @@ class Receipt2 {
       data['operating_check_props'] = operatingCheckProps!.toJson();
     }
     if (sectoralCheckProps != null) {
-      data['sectoral_check_props'] = sectoralCheckProps!.toJson();
+      data['sectoral_check_props'] = sectoralCheckProps!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -223,7 +223,7 @@ class MoneyTransferOperator2 {
 
 class Items2 {
   String name;
-  int price;
+  double price;
   double quantity;
   double sum;
   int measure;
@@ -233,7 +233,7 @@ class Items2 {
   AgentInfo2? agentInfo;
   SupplierInfo2? supplierInfo;
   String? userData;
-  int? excise;
+  double? excise;
   String? countryCode;
   String? declarationNumber;
   MarkQuantity? markQuantity;
@@ -311,7 +311,7 @@ class MarkCode {
   String? unknown;
   String? ean;
   String? ean13;
-  String? intf14;
+  String? itf14;
   String? gs10;
   String? gs1m;
   String? short;
@@ -323,7 +323,7 @@ class MarkCode {
       {this.unknown,
       this.ean,
       this.ean13,
-      this.intf14,
+      this.itf14,
       this.gs10,
       this.gs1m,
       this.short,
@@ -342,8 +342,8 @@ class MarkCode {
     if (ean13 != null) {
       data['ean13'] = ean13;
     }
-    if (intf14 != null) {
-      data['intf14'] = intf14;
+    if (itf14 != null) {
+      data['itf14'] = itf14;
     }
     if (gs10 != null) {
       data['gs10'] = gs10;
