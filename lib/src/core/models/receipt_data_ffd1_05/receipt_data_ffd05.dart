@@ -231,7 +231,7 @@ class MoneyTransferOperator {
 
 class Items {
   String name;
-  int price;
+  double price;
   double quantity;
   double sum;
   String? measurementUnit;
@@ -242,7 +242,7 @@ class Items {
   AgentInfo? agentInfo;
   SupplierInfo? supplierInfo;
   String? userData;
-  int? excise;
+  double? excise;
   String? countryCode;
   String? declarationNumber;
 
