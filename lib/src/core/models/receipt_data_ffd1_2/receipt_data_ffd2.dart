@@ -43,6 +43,7 @@ class Receipt2 {
       this.additionalCheckProps,
       this.cashier,
       this.additionalUserProps,
+      this.operatingCheckProps,
       this.sectoralCheckProps});
 
   Map<String, dynamic> toJson() {
